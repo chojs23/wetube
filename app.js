@@ -26,6 +26,7 @@ const betweenHome =(req,res,next)=>{
     next();
 };
 
+
 //app.use -> 모든 route에서 middleware 실행
 app.use(cookieParser());
 app.use(bodyParser.json());
