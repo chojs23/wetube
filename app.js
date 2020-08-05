@@ -11,7 +11,7 @@ import routes from "./routes";
 
 const app = express(); //execute
 
-
+app.set('view engine',"pug");
 //const PORT=4000;
 // function handleListening(){
 //     console.log(`Listening on: http://localhost:${PORT}`);
@@ -31,10 +31,10 @@ const app = express(); //execute
 
 
 //app.use -> 모든 route에서 middleware 실행
-app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(cookieParser());//쿠키 전달받아서 사용할 수 있도록 만들어주는 middleware
+app.use(bodyParser.json());//사용자가 웹으로 전달하는 정보 검사
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(helmet());
+app.use(helmet());//보안용
 app.use(morgan("common"));//morgan -> 기록함
 
 //app.use("/",globalRouter);
