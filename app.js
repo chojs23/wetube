@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import globalRouter from "./routers/globalRouter";
+import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
@@ -31,11 +32,14 @@ app.set('view engine',"pug");
 
 
 //app.use -> 모든 route에서 middleware 실행
+app.use(helmet());//보안용
 app.use(cookieParser());//쿠키 전달받아서 사용할 수 있도록 만들어주는 middleware
 app.use(bodyParser.json());//사용자가 웹으로 전달하는 정보 검사
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(helmet());//보안용
 app.use(morgan("common"));//morgan -> 기록함
+
+
+app.use(localsMiddleware);
 
 //app.use("/",globalRouter);
 app.use(routes.home,globalRouter);
