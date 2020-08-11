@@ -11,7 +11,7 @@ export const search = (req, res) => {
     }=req;
 
     //const searchingBy=req.query.params
-    res.render("Search",{pageTitle:"Search",searchingBy:searchingBy});
+    res.render("Search",{pageTitle:"Search",searchingBy:searchingBy,videos});
 
 
 };
