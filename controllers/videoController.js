@@ -1,4 +1,3 @@
-import { videos } from "../db";
 import routes from "../routes";
 export const home = (req, res) => {
   res.render("home", { pageTitle: "Home", videos }); //pageTitle이 home템플릿으로 전달
