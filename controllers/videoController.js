@@ -1,6 +1,15 @@
 import routes from "../routes";
-export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", videos }); //pageTitle이 home템플릿으로 전달
+import Video from "../models/Video";
+
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({}); //async는 기다리라는 뜻? await쓰려면 async 필요
+    console.log(videos); //await부분이 끝나지 전에는 다음 부분 실행 안함
+    res.render("home", { pageTitle: "Home", videos }); //pageTitle이 home템플릿으로 전달
+  } catch {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", videos: [] });
+  }
 };
 export const search = (req, res) => {
   //const searchingBy =req.query.term;
