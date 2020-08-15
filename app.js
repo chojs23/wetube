@@ -32,6 +32,7 @@ app.set("view engine", "pug");
 
 //app.use -> 모든 route에서 middleware 실행
 app.use(helmet()); //보안용
+app.use("/uploads", express.static("uploads"));
 app.use(cookieParser()); //쿠키 전달받아서 사용할 수 있도록 만들어주는 middleware
 app.use(bodyParser.json()); //사용자가 웹으로 전달하는 정보 검사
 app.use(bodyParser.urlencoded({ extended: true }));
