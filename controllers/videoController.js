@@ -3,29 +3,35 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}); //async는 기다리라는 뜻? await쓰려면 async 필요
-    console.log(videos); //await부분이 끝나지 전에는 다음 부분 실행 안함
-    res.render("home", { pageTitle: "Home", videos }); //pageTitle이 home템플릿으로 전달
+    const videos = await Video.find({}).sort({ _id: -1 }); // async는 기다리라는 뜻? await쓰려면 async 필요
+    console.log(videos); // await부분이 끝나지 전에는 다음 부분 실행 안함
+    res.render("home", { pageTitle: "Home", videos }); // pageTitle이 home템플릿으로 전달
   } catch {
+    // eslint-disable-next-line no-undef
     console.log(error);
     res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
-export const search = (req, res) => {
-  //const searchingBy =req.query.term;
+export const search = async (req, res) => {
+  // const searchingBy =req.query.term;
   const {
     query: { term: searchingBy },
   } = req;
-
-  //const searchingBy=req.query.params
+  const videos = [];
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+  // const searchingBy=req.query.params
   res.render("Search", {
     pageTitle: "Search",
-    searchingBy: searchingBy,
+    searchingBy,
     videos,
   });
 };
-//export const videos = (req, res) => res.render("Videos",{pageTitle:"Videos"});
-export const getUpload = (req, res) => res.render("upload", { pageTitle: "Upload" });
+// export const videos = (req, res) => res.render("Videos",{pageTitle:"Videos"});
+export const getUpload = (req, res) =>
+  res.render("upload", { pageTitle: "Upload" });
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
@@ -37,7 +43,7 @@ export const postUpload = async (req, res) => {
     description,
   });
   console.log(newVideo);
-  //To Do : Upload and save video
+  // To Do : Upload and save video
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -53,7 +59,7 @@ export const videoDetail = async (req, res) => {
     console.log(error);
     res.redirect(routes.home);
   }
-}; //controller에서 어떤 data를 가지고 있는 것을 표현하려면 :와 이름을 넣음
+}; // controller에서 어떤 data를 가지고 있는 것을 표현하려면 :와 이름을 넣음
 export const getEditVideo = async (req, res) => {
   const {
     params: { id },
@@ -84,6 +90,7 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     await Video.findOneAndRemove({ _id: id });
+    // eslint-disable-next-line no-empty
   } catch (error) {}
   res.redirect(routes.home);
 };

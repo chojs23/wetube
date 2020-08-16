@@ -1,19 +1,19 @@
-//url 여기에
+// url 여기에
 
-//Global
+// Global
 const HOME = "/";
 const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
 const SEARCH = "/search";
 
-//Users
+// Users
 const USERS = "/users";
 const USER_DETAIL = "/:id"; // /users/1 처럼 가능
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
 
-//Videos
+// Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
 const VIDEO_DETAIL = "/:id"; // :변하는 값 express가 알아들음
@@ -30,9 +30,8 @@ const routes = {
   userDetail: (id) => {
     if (id) {
       return `/users/${id}`;
-    } else {
-      return USER_DETAIL;
     }
+    return USER_DETAIL;
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
@@ -41,23 +40,20 @@ const routes = {
   videoDetail: (id) => {
     if (id) {
       return `/videos/${id}`;
-    } else {
-      return VIDEO_DETAIL;
     }
+    return VIDEO_DETAIL;
   },
   editVideo: (id) => {
     if (id) {
       return `/videos/${id}/edit`;
-    } else {
-      return EDIT_VIDEO;
     }
+    return EDIT_VIDEO;
   },
   deleteVideo: (id) => {
     if (id) {
       return `/videos/${id}/delete`;
-    } else {
-      return DELETE_VIDEO;
     }
+    return DELETE_VIDEO;
   },
 };
 
