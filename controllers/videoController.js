@@ -17,8 +17,11 @@ export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
   } = req;
-  const videos = [];
+  let videos = [];
   try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    }); // $regex mongoDB 제이쿼리 regular expression이용
   } catch (error) {
     console.log(error);
   }
