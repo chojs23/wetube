@@ -5,6 +5,9 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
 import session from "express-session";
+import MongoStore from "connect-mongo";
+import mongoose from "mongoose";
+import Cookies, { Cookie } from "cookies";
 import globalRouter from "./routers/globalRouter";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
@@ -14,6 +17,8 @@ import "./passport";
 // const express = require('express'); //node moudule import
 
 const app = express(); // execute
+
+const CookieStore = MongoStore(session); // 서버재시작,새로고침해도 로그인 세션 유지
 
 app.set("view engine", "pug");
 // const PORT=4000;
@@ -47,6 +52,10 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
+    store: new CookieStore({
+      mongooseConnection: mongoose.connection,
+    }), // cookieStore와 mongo간의 연결을 만들어 줌
+    // mongoose는 이 저장소를 mongoDB에 연결해줌
   })
 ); // session은 쿠키를 해독함 -> 실제 id가져옴
 app.use(passport.initialize()); // cookieparser로부터 쿠키가 내려와서

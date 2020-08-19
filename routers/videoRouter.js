@@ -8,19 +8,20 @@ import {
   postEditVideo,
   deleteVideo,
 } from "../controllers/videoController";
-import { uploadVideo } from "../middlewares";
+import { uploadVideo, onlyPrivate } from "../middlewares";
 
 const videoRouter = express.Router();
 
 // videoRouter.get(routes.videos, videos);
-videoRouter.get(routes.upload, getUpload);
-videoRouter.post(routes.upload, uploadVideo, postUpload);
-
+// Upload
+videoRouter.get(routes.upload, onlyPrivate, getUpload);
+videoRouter.post(routes.upload, onlyPrivate, uploadVideo, postUpload);
+// Video Detail
 videoRouter.get(routes.videoDetail(), videoDetail);
-
-videoRouter.get(routes.editVideo(), getEditVideo);
-videoRouter.post(routes.editVideo(), postEditVideo);
-
-videoRouter.get(routes.deleteVideo(), deleteVideo);
+// Edit Video
+videoRouter.get(routes.editVideo(), onlyPrivate, getEditVideo);
+videoRouter.post(routes.editVideo(), onlyPrivate, postEditVideo);
+// Delete Video
+videoRouter.get(routes.deleteVideo(), onlyPrivate, deleteVideo);
 export default videoRouter; // export default 는 파일로 전체를export함
 // 그냥 export는 오직 한 변수만 export
