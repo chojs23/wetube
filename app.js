@@ -3,11 +3,14 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
+import session from "express-session";
 import globalRouter from "./routers/globalRouter";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
+import "./passport";
 // const express = require('express'); //node moudule import
 
 const app = express(); // execute
@@ -38,6 +41,19 @@ app.use(cookieParser()); // 쿠키 전달받아서 사용할 수 있도록 만�
 app.use(bodyParser.json()); // 사용자가 웹으로 전달하는 정보 검사
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("common")); // morgan -> 기록함
+
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+  })
+); // session은 쿠키를 해독함 -> 실제 id가져옴
+app.use(passport.initialize()); // cookieparser로부터 쿠키가 내려와서
+// passport가 쿠키를 보고 그 정보에 해당하는 사용자 찾음
+// 찾은 사용자를 request의 object -> req.user로 만들어줌
+app.use(passport.session()); // !! need to install express-session
+// 여기서해독된 id가 passport로 넘어감
 
 app.use(localsMiddleware);
 
