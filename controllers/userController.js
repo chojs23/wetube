@@ -17,10 +17,10 @@ export const postJoin = async (req, res, next) => {
     res.render("join", { pageTitle: "Join" });
   } else {
     try {
-      const user = {
+      const user = await User({
         name,
         email,
-      };
+      });
 
       await User.register(user, password);
       next();
@@ -38,11 +38,49 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home, // 로그인 성공시 home으로
 });
 
-export const logout = (req, res) => {
-  // To Do : Process Logout
+export const githubLogin = passport.authenticate("github"); // 이거 실행되면 passport의 strategy를 이용
+
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url: avatarUrl, name, email },
+  } = profile;
+  try {
+    const user = await User.findOne({ email }); // mongoDB에서 git profile로 얻은 이메일과 같은 이메일 찾음
+    if (user) {
+      // 사용자가 가입되어 있는데 github 이메일과 같은 이메일이면
+      // 로그인시키고 사용자 githubID 업데이트시킴
+      user.githubId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      githubId: id,
+      avatarUrl,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
+};
+
+export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
 };
-export const users = (req, res) => res.send("Users", { pageTitle: "Users" });
+
+export const logout = (req, res) => {
+  req.logout(); // passport 사용할 때 이러면 로그아웃
+  res.redirect(routes.home);
+};
+
+export const getMe = (req, res) => {
+  res.render("userDetail", {
+    pageTitle: "User Detail",
+    user: req.user,
+  });
+};
+
 export const userDetail = (req, res) =>
   res.render("userDetail", {
     pageTitle: "User Detail",
