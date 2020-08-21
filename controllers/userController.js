@@ -50,6 +50,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       // 사용자가 가입되어 있는데 github 이메일과 같은 이메일이면
       // 로그인시키고 사용자 githubID 업데이트시킴
       user.githubId = id;
+      user.avatarUrl = avatarUrl;
       user.save();
       return cb(null, user);
     }
@@ -69,6 +70,19 @@ export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
 };
 
+export const facebookLogin = passport.authenticate("facebook"); // 이거 실행되면 passport의 strategy를 이용
+
+export const facebookLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url: avatarUrl, name, email },
+  } = profile;
+  console.log(profile);
+};
+
+export const postFacebookLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
 export const logout = (req, res) => {
   req.logout(); // passport 사용할 때 이러면 로그아웃
   res.redirect(routes.home);
@@ -81,11 +95,22 @@ export const getMe = (req, res) => {
   });
 };
 
-export const userDetail = (req, res) =>
-  res.render("userDetail", {
-    pageTitle: "User Detail",
-  });
-export const editProfile = (req, res) =>
+export const userDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", {
+      pageTitle: "User Detail",
+      user,
+    });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+export const getEditProfile = (req, res) =>
   res.render("editProfile", {
     pageTitle: "Edit Profile",
   });
