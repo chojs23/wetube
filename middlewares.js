@@ -2,6 +2,9 @@ import multer from "multer";
 import routes from "./routes";
 
 const multerVideo = multer({ dest: "uploads/videos/" });
+
+const multerAvatar = multer({ dest: "uploads/avatars/" });
+
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube"; // locals에 로컬변수 저장 이 변수들을 템플릿에서 사용가능
   res.locals.routes = routes; // 전역으로 사용하는 변수추가
@@ -28,4 +31,5 @@ export const onlyPrivate = (req, res, next) => {
   }
 };
 
-export const uploadVideo = multerVideo.single("videoFile");
+export const uploadVideo = multerVideo.single("videoFile"); // upload.pug 에 비디오 파일 name="videoFile"
+export const uploadAvatar = multerAvatar.single("avatar");
