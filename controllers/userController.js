@@ -72,8 +72,10 @@ export const postGithubLogin = (req, res) => {
 
 export const facebookLogin = passport.authenticate("facebook"); // 이거 실행되면 passport의 strategy를 이용
 
+// eslint-disable-next-line no-unused-vars
 export const facebookLoginCallback = async (_, __, profile, cb) => {
   const {
+    // eslint-disable-next-line no-unused-vars
     _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
   console.log(profile);
@@ -127,11 +129,29 @@ export const postEditProfile = async (req, res) => {
     });
     res.redirect(routes.me);
   } catch (error) {
-    res.render("editProfile", { pageTitle: "Edit Profile" });
+    res.redirect(routes.editProfile);
   }
 };
 
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render("changePassword", {
     pageTitle: "Change Password",
   });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPasswod, newPassword, newPassword1 },
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(routes.changepPassword);
+      return;
+    }
+    await req.user.changePassword(oldPasswod, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(routes.changePassword);
+  }
+};

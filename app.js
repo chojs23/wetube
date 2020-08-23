@@ -7,7 +7,7 @@ import passport from "passport";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
-import Cookies, { Cookie } from "cookies";
+// import Cookies, { Cookie } from "cookies";
 import globalRouter from "./routers/globalRouter";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
