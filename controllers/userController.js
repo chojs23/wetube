@@ -7,7 +7,6 @@ export const getJoin = (req, res) => {
 };
 
 export const postJoin = async (req, res, next) => {
-  console.log(req.body);
   const {
     body: { name, email, password, password2 },
   } = req; // =req -> inside of req
@@ -78,7 +77,6 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
     // eslint-disable-next-line no-unused-vars
     _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
-  console.log(profile);
 };
 
 export const postFacebookLogin = (req, res) => {
@@ -103,7 +101,8 @@ export const userDetail = async (req, res) => {
   } = req;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
     res.render("userDetail", {
       pageTitle: "User Detail",
       user,
