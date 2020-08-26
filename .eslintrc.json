@@ -1,7 +1,8 @@
 {
   "env": {
     "es2020": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
   "extends": ["eslint:recommended", "airbnb-base", "prettier", "plugin:prettier/recommended"],
   "parserOptions": {
