@@ -30,6 +30,10 @@ const FB_CALLBACK = "/auth/facebook/callback";
 
 const BASE = "http://localhost:4000/";
 
+// API
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -71,6 +75,8 @@ const routes = {
   facebook: FB,
   facebookCallback: FB_CALLBACK,
   base: BASE,
+  api: API,
+  registerView: REGISTER_VIEW,
 };
 
 export default routes;
