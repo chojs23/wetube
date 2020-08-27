@@ -62,5 +62,14 @@
         margin-bottom: 15px;
       }
     }
+    button {
+      position: relative;
+      left: 120px;
+      bottom: 50px;
+      padding: 5px;
+      width: 13%;
+      background-color: red;
+      color: white;
+    }
   }
 }
