@@ -33,6 +33,7 @@ const BASE = "http://localhost:4000/";
 // API
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
+const ADD_COMMNET = "/:id/comment";
 
 const routes = {
   home: HOME,
@@ -77,6 +78,7 @@ const routes = {
   base: BASE,
   api: API,
   registerView: REGISTER_VIEW,
+  addComment: ADD_COMMNET,
 };
 
 export default routes;
