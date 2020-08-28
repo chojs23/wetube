@@ -3,6 +3,7 @@ import axios from "axios";
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
+const commentBtn = document.getElementById("jsCommentBtn");
 
 const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
@@ -39,6 +40,14 @@ const handleSubmit = (event) => {
   sendComment(comment);
   commentInput.value = "";
 };
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  const commentId = window.location.href.split("/videos/")[3];
+  fetch(`/api/${videoId}/comment/${commentId}/del`, { method: "POST" });
+};
+function handelDel=()=>{
+  registerView()
+}
 function init() {
   addCommentForm.addEventListener("submit", handleSubmit);
 }

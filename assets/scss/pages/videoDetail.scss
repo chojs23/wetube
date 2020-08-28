@@ -62,12 +62,14 @@
         margin-bottom: 15px;
       }
     }
+  }
+  .video__commentBtn {
+    margin-top: 50px;
+
     button {
-      position: relative;
-      left: 120px;
-      bottom: 50px;
-      padding: 5px;
-      width: 13%;
+      padding: 15px;
+
+      width: 100%;
       background-color: red;
       color: white;
     }

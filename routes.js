@@ -34,6 +34,7 @@ const BASE = "http://localhost:4000/";
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMNET = "/:id/comment";
+const DEL_COMMENT = "/:id/comment/:commentId/del";
 
 const routes = {
   home: HOME,
@@ -79,6 +80,11 @@ const routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMNET,
+  delComment: (id, commentId) => {
+    if (id) {
+      return `/api/${id}/comment/${commentId}/del`;
+    }
+  },
 };
 
 export default routes;

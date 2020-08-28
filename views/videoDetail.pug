@@ -35,6 +35,12 @@ block content
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li
-                        span=comment.text
-                    a(href='')
-                        button X
+                        span=comment.id    
+            ul.video__commentBtn#jsCommentBtn
+                each comment in video.comments.reverse()
+                    li   
+                        if loggedUser&& comment.creator == loggedUser.id
+                                a(href=routes.delComment(video.id,comment.id))
+                                    button X
+                        else
+                            button O
