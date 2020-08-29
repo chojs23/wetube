@@ -4,11 +4,7 @@ const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
 const commentBtn = document.getElementById("jsCommentBtn");
-<<<<<<< HEAD
 const selectedComment = document.getElementById("selectedComment");
-=======
-
->>>>>>> 1c13ddc11c4f75bf5bc5b03c376ac8db1eebdd7f
 const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
@@ -44,7 +40,6 @@ const handleSubmit = (event) => {
   sendComment(comment);
   commentInput.value = "";
 };
-<<<<<<< HEAD
 
 const registerView = () => {
   const videoId = window.location.href.split("/videos/")[1];
@@ -64,16 +59,6 @@ const handelDel = () => {
 const decreaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
-=======
-const registerView = () => {
-  const videoId = window.location.href.split("/videos/")[1];
-  const commentId = window.location.href.split("/videos/")[3];
-  fetch(`/api/${videoId}/comment/${commentId}/del`, { method: "POST" });
-};
-function handelDel=()=>{
-  registerView()
-}
->>>>>>> 1c13ddc11c4f75bf5bc5b03c376ac8db1eebdd7f
 function init() {
   addCommentForm.addEventListener("submit", handleSubmit);
   if (commentBtn) {
