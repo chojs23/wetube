@@ -65,6 +65,7 @@
     }
   }
   .video__commentBtn {
+<<<<<<< HEAD
     transform: rotate(180deg);
     position: absolute;
     bottom: -15px;
@@ -85,6 +86,16 @@
       &:not(:last-child) {
         margin-bottom: 15px;
       }
+=======
+    margin-top: 50px;
+
+    button {
+      padding: 15px;
+
+      width: 100%;
+      background-color: red;
+      color: white;
+>>>>>>> 1c13ddc11c4f75bf5bc5b03c376ac8db1eebdd7f
     }
   }
 }
