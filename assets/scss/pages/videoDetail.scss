@@ -37,6 +37,7 @@
     }
   }
   .video__comments {
+    position: relative;
     margin-top: 25px;
     text-align: center;
     .video__comment-number {
@@ -58,6 +59,29 @@
       padding: 15px;
       border-radius: 20px;
       border-bottom-left-radius: 0px;
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .video__commentBtn {
+    transform: rotate(180deg);
+    position: absolute;
+    bottom: -15px;
+    left: 215px;
+    margin-top: 50px;
+    li {
+      transform: rotate(-180deg);
+    }
+    button {
+      border-bottom-left-radius: 0px;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      width: 100%;
+      background-color: red;
+      color: white;
       &:not(:last-child) {
         margin-bottom: 15px;
       }
